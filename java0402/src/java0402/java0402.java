@@ -1,3 +1,4 @@
+package java0402;
 
 public class java0402 {
 
