@@ -218,7 +218,7 @@ public class GravityGame extends JPanel {
                     }
                 }
                 else {
-					m.setDamage(false);
+					m.setisHit(false);
 				}
                 
 			}
@@ -285,11 +285,11 @@ class monster1{
     
     private boolean isOnGround = false; // 바닥에 있는지 여부
     private boolean isJumping = false;  // 점프 중인지 여부  
-    private boolean isDamage = false;
+    private boolean isHit = false;
     
     
-	public void setDamage(boolean isDamage) {
-		this.isDamage = isDamage;
+	public void setisHit(boolean isHit) {
+		this.isHit = isHit;
 	}
 
 	public int getX() {
@@ -314,10 +314,10 @@ class monster1{
 	}
 	
 	public void takeDamage(int dmg) {
-		if (isDamage) {
+		if (isHit) {
 			return;
 		}
-			isDamage = true;
+			isHit = true;
 	        hp -= dmg;
 	        System.out.println("몬스터 피격! HP: " + hp);
 	}
