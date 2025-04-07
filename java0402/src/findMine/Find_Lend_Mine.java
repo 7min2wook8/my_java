@@ -102,12 +102,26 @@ class FindBoom2 extends JFrame{
 			return;
 		}
 		
-		int cusor = index - 1;
-		
-		if (cusor > 0 && !isbooms.get(cusor).boom) {
-			
+		//왼쪽확인
+		int cusor = index - 1;	
+		if (cusor > -1 && isbooms.get(cusor).boom) {
+			isdead = true;
+			return;
 		}
 		
+		//오른쪽 확인
+		cusor = index + 1;
+		if (cusor < isbooms.size() && isbooms.get(cusor).boom) {
+			isdead = true;
+			return;
+		}
+		
+		//위확인
+		cusor = index - row;	
+		if (cusor > -1 && isbooms.get(cusor).boom) {
+			isdead = true;
+			return;
+		}
 	}
 	
 	
