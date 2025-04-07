@@ -1,5 +1,6 @@
 package com.example.myProject.dto;
 
+//Data Transfer Object 주고받는 데이터 양식 설정
 public class UserDTO {
 	
 	private String name;

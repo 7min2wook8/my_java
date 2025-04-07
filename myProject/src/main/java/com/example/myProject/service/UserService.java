@@ -10,6 +10,8 @@ import com.example.myProject.dto.UserDTO;
 import com.example.myProject.model.User;
 import com.example.myProject.repository.UserRepository;
 
+
+//데이터 가공 역할
 @Service
 public class UserService {
 //    private List<UserDTO> userList = new ArrayList<>();
