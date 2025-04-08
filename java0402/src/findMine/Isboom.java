@@ -1,20 +1,41 @@
 package findMine;
 
+import javax.swing.JButton;
+
 public class Isboom {
-	int index = 0;
 	
-	boolean boom = false;
+	String boom = "B";
+	JButton btn = null;
 	
-	public Isboom(boolean boom, int index){
+
+	boolean isCheck = false;//체크 안하면 false, 체크하면 true;
+	
+	public JButton getBtn() {
+		return btn;
+	}
+	
+	public void setBtn(JButton btn) {
+		this.btn = btn;
+	}
+	
+	public Isboom(String boom, JButton btn){
 		this.boom = boom;
-		this.index = index;
+		this.btn = btn;
+	}
+	
+	public boolean isCheck() {
+		return isCheck;
 	}
 
-	public boolean getBoom() {
+	public void setEnable(boolean isEnable) {
+		this.isCheck = isEnable;
+	}
+
+	public String getBoom() {
 		return boom;
 	}
 
-	public void setBoom(boolean boom) {
+	public void setBoom(String boom) {
 		this.boom = boom;
 	}
 	
