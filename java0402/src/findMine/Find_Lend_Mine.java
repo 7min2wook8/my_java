@@ -6,15 +6,24 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.*;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
-
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Label;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.lang.Character;
+
 
 public class Find_Lend_Mine {
 
@@ -23,10 +32,72 @@ public class Find_Lend_Mine {
 		//findLend_1Line lend1 = new findLend_1Line();
 		//findLend_3Line lend3 = new findLend_3Line();
 		//FindBoom findBoom = new FindBoom();
-		FindBoom2 findBoom2 = new FindBoom2(10,10);
+		//FindBoom2 findBoom2 = new FindBoom2(10,10);
+		
+		SwingUtilities.invokeLater(() -> new FindBoomTitle2());
 		
 	}
 	
+}
+
+
+class FindBoomTitle2 extends JFrame{
+	
+	public FindBoomTitle2(){
+		setTitle("🔥 Find the Mine 🔥");
+        setSize(500, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // 화면 중앙 정렬
+        setResizable(false);
+
+        // 메인 패널
+        JPanel mainPanel = new JPanel();
+        mainPanel.setBackground(Color.white);
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
+
+        // 게임 제목
+        JLabel titleLabel = new JLabel("Find The Mine");
+        titleLabel.setFont(new Font("맑은 고딕", Font.BOLD, 40));
+        titleLabel.setForeground(Color.black);
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // 시작 버튼
+        JButton startButton = new JButton("게임 시작");
+        startButton.setFont(new Font("맑은 고딕", Font.BOLD, 24));
+        startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        startButton.setFocusPainted(false);
+
+        // 종료 버튼
+        JButton exitButton = new JButton("게임 종료");
+        exitButton.setFont(new Font("맑은 고딕", Font.PLAIN, 20));
+        exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        exitButton.setFocusPainted(false);
+
+        // 버튼 간격
+        mainPanel.add(titleLabel);
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 60)));
+        mainPanel.add(startButton);
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        mainPanel.add(exitButton);
+
+        add(mainPanel);
+        setVisible(true);
+
+        // 버튼 액션
+        startButton.addActionListener(e -> {
+            // 여기서 게임 화면으로 전환하면 됩니다
+            System.out.println("게임 시작!");
+            dispose(); // 타이틀 화면 닫기
+
+            // 예: FindBoom2 game = new FindBoom2(10, 10);
+            new FindBoom2(10, 10); 
+        });
+
+        exitButton.addActionListener(e -> {
+            System.exit(0);
+        });
+	}
 }
 
 class FindBoom2 extends JFrame{
@@ -42,13 +113,14 @@ class FindBoom2 extends JFrame{
 	int row = 0;
 	int col = 0;
 	boolean isdead = false;
-	boolean isEnd = false;
+	
 	int maxBoom = 10;	//폭탄 개수
 	int totalBlock = 0;	//총 블럭 개수
 	int openBlock = 0;	//열린 블럭 개수
     
 	public void myFrame(){
-		setSize(800,900);
+		setTitle("🔥 Find the Mine 🔥");
+		setSize(500,600);
 		setLocation(100, 100);		
 		setVisible(true); // 먼저 보여줘야 getContentPane().getSize()가 정확함
 		
@@ -76,65 +148,147 @@ class FindBoom2 extends JFrame{
 				JButton btn = new JButton();
 				
 				btn.putClientProperty("index", index); // 버튼에 index 저장
-				isbooms.get(index).setBtn(btn);
+				isbooms.get(index).setBtn(btn);			//리스트에 버튼 지정
 				
 				btn.addActionListener(e -> {
 					
 					if (isdead) {
-						System.out.println("주금");
 						return;
-					}else if(isEnd) {
-						
 					}
-					
 					
 					JButton clickedBtn = (JButton) e.getSource();
 		            int idx = (int) clickedBtn.getClientProperty("index");//버튼에 저장된 인덱스값 저장
 					
 		            //선택한 버튼이 폭탄이면 모든 버튼 비활성화, 폭탄은 붉은색으로 변경
-		            if (isbooms.get(idx).getBoom() == "B") {
-		    			//System.out.println("You die");	
-		    			
-		    			for (int k = 0; k < isbooms.size(); k++) {
-		    				
-		    				if (isbooms.get(k).getBoom() == "B") {
-		    					isbooms.get(k).getBtn().setText("💣");
-		    					isbooms.get(k).getBtn().setBackground(Color.red);
-		    					isbooms.get(k).getBtn().setEnabled(false);
-		    				}
-		    				
-		    			}
-		    			isdead = true;
+		            if (isbooms.get(idx).checkBoom()) {
+		            	System.out.println("주금");
+		            	GameEnd(false);
 		    			return;
 		    		}
-		            
-		            
+		            //선택한 버튼 주변에 관한 이벤트 실행
+		            //폭탄이 주변에 있으면 폭탄수를 표시
+		            //폭탄이 없으면
 					SelectBtn(idx);
-					btn.setEnabled(false);
 					
-
-					
-					System.out.println("열린 버튼 개수 : " + openBlock);
-					
+					//다 찾으면 게임 끝냄
 					if (openBlock == totalBlock - maxBoom) {
 						System.out.println("다 찾음!!!");
-						isEnd = true;
+						GameEnd(true);
 						return;
 					}
 					
 				});
+				
+				
+				btn.addMouseListener(new MouseAdapter() {
 					
+				    @Override
+				    public void mouseClicked(MouseEvent e) {
+				        if (SwingUtilities.isRightMouseButton(e)) {
+				        	if (isdead) {
+								return;
+							}
+				            // 여기에 원하는 기능 넣기 (예: 깃발 표시)
+				            
+							JButton clickedBtn = (JButton) e.getSource();
+				            int idx = (int) clickedBtn.getClientProperty("index");//버튼에 저장된 인덱스값 저장
+							
+				            //열리지 않은 버튼을 오른쪽 클릭시 X표시
+				            if (isbooms.get(idx).getState() == BlockState.HIDDEN) {
+				            	//System.out.println("우클릭");
+				            	clickedBtn.setText("X");
+				            	isbooms.get(idx).setState(BlockState.FLAGGED);
+				            	return;
+				            	
+				            //깃발표시인 것을 오른쪽 클릭하면 다시 숨긴걸로 표시
+				            }else if (isbooms.get(idx).getState() == BlockState.FLAGGED) {
+				            	clickedBtn.setText("");
+				            	isbooms.get(idx).setState(BlockState.HIDDEN);
+				            	return;
+							}
+				        }
+				    }
+				});
+				
+				
 				pane.add(btn);
 				
 			}
 		}
 		
-		pane.revalidate();
+		pane.revalidate(); //변경된 좌표를 다시 계산해서 표시하는 메소드이다.
         pane.repaint();
 		
 	}
 	
+	private void GameEnd(boolean isVictory) {
+		
+		for (int k = 0; k < isbooms.size(); k++) {
+			
+			isbooms.get(k).checkBoom();
+				
+		}
+		isdead = true;
+		
+		JLabel resultLabel = new JLabel("", SwingConstants.CENTER);
+		
+		resultLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		resultLabel.setForeground(Color.RED);
+		resultLabel.setOpaque(true);			//바탕 보이기 설정
+		resultLabel.setBackground(Color.white);
+		resultLabel.setVisible(true);
+
+		// 프레임에 오버레이처럼 붙이기 (레이아웃에 따라 조절 필요)
+		getLayeredPane().add(resultLabel, JLayeredPane.PALETTE_LAYER);
+		resultLabel.setBounds(0, 300, 500, 100);  // 위치와 크기 조절
+		
+		if (isVictory) {
+			
+			resultLabel.setText("승리! 모든 지뢰를 찾았습니다!");
+			resultLabel.setVisible(true);
+		
+		}else {
+			
+			resultLabel.setText("게임 오버! 지뢰를 밟았습니다!");
+			resultLabel.setVisible(true);
+		
+		}
+		
+		JButton restartButton = new JButton("다시 시작");
+		restartButton.setFont(new Font("맑은 고딕", Font.BOLD, 24));
+		restartButton.setBackground(Color.LIGHT_GRAY);
+		restartButton.setFocusPainted(true);	//버튼 테두리 설정
+		restartButton.setBounds(150, 400, 200, 60); // 위치 조절
+		restartButton.setVisible(true); 
+
+		getLayeredPane().add(restartButton, JLayeredPane.PALETTE_LAYER);
+		restartButton.addActionListener(e -> {
+		    dispose(); // 현재 창 닫기
+		    new FindBoom2(row, col); // 새 게임 시작
+		});
+
+//		if (isVictory) {
+//			JOptionPane.showMessageDialog(this, "게임 종료! 승리했습니다! 🎉");
+//		}else {
+//			JOptionPane.showMessageDialog(this, "게임 종료! 패배했습니다!");
+//		}
+		
+        
+
+	}
+	
+	
 	private void SelectBtn(int idx) {
+		
+		//체크한건 넘어가라
+        if (isbooms.get(idx).getState() == BlockState.OPENED){
+			return;
+		}
+        
+        isbooms.get(idx).getBtn().setEnabled(false);//버튼 비활성화
+        isbooms.get(idx).setState(BlockState.OPENED);;			//선택됨
+        openBlock++;
+       
 		int boomCount = 0;
 		
 		int x = idx / col;	//
@@ -163,14 +317,6 @@ class FindBoom2 extends JFrame{
                 int ny = y + dy[d];
                 if (nx >= 0 && ny >= 0 && nx < row && ny < col) {
                     int neighborIdx = nx * col + ny;
-                    
-                    //체크한건 넘어가라
-                    if (isbooms.get(neighborIdx).isCheck) {
-						continue;
-					}
-                    
-                    isbooms.get(neighborIdx).getBtn().setEnabled(false);
-                    isbooms.get(neighborIdx).setEnable(true);
                     SelectBtn(neighborIdx);
                 }
             }
@@ -179,8 +325,8 @@ class FindBoom2 extends JFrame{
 			isbooms.get(idx).getBtn().setEnabled(false);
 		}
         
-        openBlock++;
-        System.out.println("인덱스 번호 좌표 : " + idx);
+        
+        //System.out.println("인덱스 번호 좌표 : " + idx);
 	}
 
 	public FindBoom2(int row,int col) {

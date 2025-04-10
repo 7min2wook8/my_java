@@ -1,15 +1,38 @@
 package findMine;
 
+import java.awt.Color;
+
 import javax.swing.JButton;
+
+enum BlockState {
+    HIDDEN,			//숨겨진
+    OPENED,			//열린
+    FLAGGED			//유저 표시
+}
 
 public class Isboom {
 	
+	public Isboom(String boom, JButton btn){
+		this.boom = boom;
+		this.btn = btn;
+	}
+	
 	String boom = "B";
-	JButton btn = null;
+	public String getBoom() {
+		return boom;
+	}
 	
+	
+	BlockState state = BlockState.HIDDEN;
+	public BlockState getState() {
+		return state;
+	}
 
-	boolean isCheck = false;//체크 안하면 false, 체크하면 true;
-	
+	public void setState(BlockState state) {
+		this.state = state;
+	}
+
+	JButton btn = null;
 	public JButton getBtn() {
 		return btn;
 	}
@@ -18,25 +41,22 @@ public class Isboom {
 		this.btn = btn;
 	}
 	
-	public Isboom(String boom, JButton btn){
-		this.boom = boom;
-		this.btn = btn;
-	}
+	//boolean isCheck = false;//체크 안하면 false, 체크하면 true;
 	
-	public boolean isCheck() {
-		return isCheck;
-	}
 
-	public void setEnable(boolean isEnable) {
-		this.isCheck = isEnable;
-	}
-
-	public String getBoom() {
-		return boom;
-	}
-
-	public void setBoom(String boom) {
-		this.boom = boom;
+	
+	//boom의 값을 보고 이벤트 실행
+	public boolean checkBoom() {
+		
+		if (boom == "B") {
+			btn.setText("💣");
+			btn.setBackground(Color.red);
+			btn.setEnabled(false);
+			return true;
+		}
+		
+		return false;
+		
 	}
 	
 }
