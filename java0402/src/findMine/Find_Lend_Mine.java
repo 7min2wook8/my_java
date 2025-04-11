@@ -13,8 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.awt.Color;
 import java.awt.Component;
+=======
+>>>>>>> parent of 310e8a86 (qew)
 =======
 >>>>>>> parent of 310e8a86 (qew)
 import java.awt.Container;
@@ -113,10 +116,15 @@ class FindBoom2 extends JFrame{
 	boolean isdead = false;
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	int maxBoom = 10;	//폭탄 개수
 	int totalBlock = 0;	//총 블럭 개수
 	int openBlock = 0;	//열린 블럭 개수
     
+=======
+	int i = 0;
+	int j = 0;
+>>>>>>> parent of 310e8a86 (qew)
 =======
 	int i = 0;
 	int j = 0;
@@ -147,6 +155,7 @@ class FindBoom2 extends JFrame{
 				JButton btn = new JButton();
 				
 				btn.putClientProperty("index", index); // 버튼에 index 저장
+<<<<<<< HEAD
 <<<<<<< HEAD
 				isbooms.get(index).setBtn(btn);			//리스트에 버튼 지정
 				
@@ -179,6 +188,12 @@ class FindBoom2 extends JFrame{
 				btn.addActionListener(e -> {
 					
 					JButton clickedBtn = (JButton) e.getSource();
+=======
+				
+				btn.addActionListener(e -> {
+					
+					JButton clickedBtn = (JButton) e.getSource();
+>>>>>>> parent of 310e8a86 (qew)
 		            int idx = (int) clickedBtn.getClientProperty("index");
 					btn.setEnabled(false);
 					
@@ -188,11 +203,15 @@ class FindBoom2 extends JFrame{
 					if (isBoom) {
 						System.out.println("You die");
 						btn.setText("B");
+<<<<<<< HEAD
+>>>>>>> parent of 310e8a86 (qew)
+=======
 >>>>>>> parent of 310e8a86 (qew)
 						return;
 					}
 					
 					checkBoom(idx);
+<<<<<<< HEAD
 					
 					//주변 체크
 				});
@@ -231,12 +250,19 @@ class FindBoom2 extends JFrame{
 				
 =======
 >>>>>>> parent of 310e8a86 (qew)
+=======
+					
+					//주변 체크
+				});
+					
+>>>>>>> parent of 310e8a86 (qew)
 				
 				pane.add(btn);
 				
 			}
 		}
 		
+<<<<<<< HEAD
 <<<<<<< HEAD
 		pane.revalidate(); //변경된 좌표를 다시 계산해서 표시하는 메소드이다.
         pane.repaint();
@@ -383,6 +409,40 @@ class FindBoom2 extends JFrame{
 		}
 >>>>>>> parent of 310e8a86 (qew)
 	}
+=======
+		
+		
+		pane.revalidate();
+        pane.repaint();
+		
+	}
+	private void checkBoom(int index) {
+		if (index < 0 || index >= isbooms.size()) {
+			return;
+		}
+		
+		//왼쪽확인
+		int cusor = index - 1;	
+		if (cusor > -1 && isbooms.get(cusor).boom) {
+			isdead = true;
+			return;
+		}
+		
+		//오른쪽 확인
+		cusor = index + 1;
+		if (cusor < isbooms.size() && isbooms.get(cusor).boom) {
+			isdead = true;
+			return;
+		}
+		
+		//위확인
+		cusor = index - row;	
+		if (cusor > -1 && isbooms.get(cusor).boom) {
+			isdead = true;
+			return;
+		}
+	}
+>>>>>>> parent of 310e8a86 (qew)
 	
 	
 	

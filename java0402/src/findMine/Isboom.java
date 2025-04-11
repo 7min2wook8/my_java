@@ -1,6 +1,7 @@
 package findMine;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.awt.Color;
 
 import javax.swing.JButton;
@@ -65,6 +66,13 @@ public class Isboom {
 =======
 	boolean boom = false;
 	
+=======
+public class Isboom {
+	int index = 0;
+	
+	boolean boom = false;
+	
+>>>>>>> parent of 310e8a86 (qew)
 	public Isboom(boolean boom, int index){
 		this.boom = boom;
 		this.index = index;
