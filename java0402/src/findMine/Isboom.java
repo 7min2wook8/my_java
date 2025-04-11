@@ -1,7 +1,5 @@
 package findMine;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import java.awt.Color;
 
 import javax.swing.JButton;
@@ -12,17 +10,18 @@ enum BlockState {
     FLAGGED			//유저 표시
 }
 
-=======
->>>>>>> parent of 310e8a86 (qew)
 public class Isboom {
 	int index = 0;
 	
-<<<<<<< HEAD
 	public Isboom(String boom, JButton btn){
 		this.boom = boom;
 		this.btn = btn;
 	}
 	
+	public Isboom(boolean b, int index2) {
+		// TODO Auto-generated constructor stub
+	}
+
 	String boom = "B";
 	public String getBoom() {
 		return boom;
@@ -63,28 +62,7 @@ public class Isboom {
 		
 		return false;
 		
-=======
-	boolean boom = false;
-	
-=======
-public class Isboom {
-	int index = 0;
-	
-	boolean boom = false;
-	
->>>>>>> parent of 310e8a86 (qew)
-	public Isboom(boolean boom, int index){
-		this.boom = boom;
-		this.index = index;
-	}
 
-	public boolean getBoom() {
-		return boom;
-	}
-
-	public void setBoom(boolean boom) {
-		this.boom = boom;
->>>>>>> parent of 310e8a86 (qew)
-	}
 	
+	}
 }

@@ -1,6 +1,5 @@
 package findMine;
 
-
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -12,14 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import java.awt.Color;
 import java.awt.Component;
-=======
->>>>>>> parent of 310e8a86 (qew)
-=======
->>>>>>> parent of 310e8a86 (qew)
+
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -109,26 +103,22 @@ class FindBoom2 extends JFrame{
 	
 	
 	ArrayList<Isboom> isbooms = new ArrayList<Isboom>();
+    final int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};//선택한 버튼 주변 위치 좌표 지정
+    final int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
 	final char Boom = 'B';
 	
 	int row = 0;
 	int col = 0;
 	boolean isdead = false;
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
 	int maxBoom = 10;	//폭탄 개수
 	int totalBlock = 0;	//총 블럭 개수
 	int openBlock = 0;	//열린 블럭 개수
-    
-=======
+
+
 	int i = 0;
 	int j = 0;
->>>>>>> parent of 310e8a86 (qew)
-=======
-	int i = 0;
-	int j = 0;
->>>>>>> parent of 310e8a86 (qew)
+
 	public void myFrame(){
 		setTitle("🔥 Find the Mine 🔥");
 		setSize(500,600);
@@ -155,8 +145,7 @@ class FindBoom2 extends JFrame{
 				JButton btn = new JButton();
 				
 				btn.putClientProperty("index", index); // 버튼에 index 저장
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 				isbooms.get(index).setBtn(btn);			//리스트에 버튼 지정
 				
 				btn.addActionListener(e -> {
@@ -183,43 +172,13 @@ class FindBoom2 extends JFrame{
 					if (openBlock == totalBlock - maxBoom) {
 						System.out.println("다 찾음!!!");
 						GameEnd(true);
-=======
-				
-				btn.addActionListener(e -> {
-					
-					JButton clickedBtn = (JButton) e.getSource();
-=======
-				
-				btn.addActionListener(e -> {
-					
-					JButton clickedBtn = (JButton) e.getSource();
->>>>>>> parent of 310e8a86 (qew)
-		            int idx = (int) clickedBtn.getClientProperty("index");
-					btn.setEnabled(false);
-					
-					Boolean isBoom = isbooms.get(idx).getBoom();
-					//btn.setText(isbooms.get(index).getBoom() +"");
-					
-					if (isBoom) {
-						System.out.println("You die");
-						btn.setText("B");
-<<<<<<< HEAD
->>>>>>> parent of 310e8a86 (qew)
-=======
->>>>>>> parent of 310e8a86 (qew)
-						return;
+
 					}
-					
-					checkBoom(idx);
-<<<<<<< HEAD
-					
-					//주변 체크
 				});
-				
 				
 				btn.addMouseListener(new MouseAdapter() {
 					
-<<<<<<< HEAD
+
 				    @Override
 				    public void mouseClicked(MouseEvent e) {
 				        if (SwingUtilities.isRightMouseButton(e)) {
@@ -248,22 +207,12 @@ class FindBoom2 extends JFrame{
 				    }
 				});
 				
-=======
->>>>>>> parent of 310e8a86 (qew)
-=======
-					
-					//주변 체크
-				});
-					
->>>>>>> parent of 310e8a86 (qew)
-				
 				pane.add(btn);
 				
 			}
 		}
 		
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 		pane.revalidate(); //변경된 좌표를 다시 계산해서 표시하는 메소드이다.
         pane.repaint();
 		
@@ -315,14 +264,6 @@ class FindBoom2 extends JFrame{
 		    new FindBoom2(row, col); // 새 게임 시작
 		});
 
-//		if (isVictory) {
-//			JOptionPane.showMessageDialog(this, "게임 종료! 승리했습니다! 🎉");
-//		}else {
-//			JOptionPane.showMessageDialog(this, "게임 종료! 패배했습니다!");
-//		}
-		
-        
-
 	}
 	
 	
@@ -373,77 +314,7 @@ class FindBoom2 extends JFrame{
 			isbooms.get(idx).getBtn().setEnabled(false);
 		}
         
-        
-        //System.out.println("인덱스 번호 좌표 : " + idx);
-=======
-		
-		
-		pane.revalidate();
-        pane.repaint();
-		
 	}
-	private void checkBoom(int index) {
-		if (index < 0 || index >= isbooms.size()) {
-			return;
-		}
-		
-		//왼쪽확인
-		int cusor = index - 1;	
-		if (cusor > -1 && isbooms.get(cusor).boom) {
-			isdead = true;
-			return;
-		}
-		
-		//오른쪽 확인
-		cusor = index + 1;
-		if (cusor < isbooms.size() && isbooms.get(cusor).boom) {
-			isdead = true;
-			return;
-		}
-		
-		//위확인
-		cusor = index - row;	
-		if (cusor > -1 && isbooms.get(cusor).boom) {
-			isdead = true;
-			return;
-		}
->>>>>>> parent of 310e8a86 (qew)
-	}
-=======
-		
-		
-		pane.revalidate();
-        pane.repaint();
-		
-	}
-	private void checkBoom(int index) {
-		if (index < 0 || index >= isbooms.size()) {
-			return;
-		}
-		
-		//왼쪽확인
-		int cusor = index - 1;	
-		if (cusor > -1 && isbooms.get(cusor).boom) {
-			isdead = true;
-			return;
-		}
-		
-		//오른쪽 확인
-		cusor = index + 1;
-		if (cusor < isbooms.size() && isbooms.get(cusor).boom) {
-			isdead = true;
-			return;
-		}
-		
-		//위확인
-		cusor = index - row;	
-		if (cusor > -1 && isbooms.get(cusor).boom) {
-			isdead = true;
-			return;
-		}
-	}
->>>>>>> parent of 310e8a86 (qew)
-	
 	
 	
 	public FindBoom2(int row,int col) {
@@ -454,23 +325,6 @@ class FindBoom2 extends JFrame{
 		
 	}
 
-	
-//	private void SetMyArrays() {
-//		Random randomValue = new Random();
-//		for (int i = 0; i < row; i++) {
-//			
-//			for (int j = 0; j < col; j++) {
-//				//System.out.println(randomValue.nextInt(2));
-//				//0~1.9999999... 사이의 숫자를 int형으로 변화 
-//				if(randomValue.nextInt(2) == 1) {
-//					isbooms.add(new Isboom('B',i,j));
-//				}else {
-//					isbooms.add(new Isboom('X',i,j));
-//				}
-//			}
-//		}
-//	}
-	
 }
 
 
