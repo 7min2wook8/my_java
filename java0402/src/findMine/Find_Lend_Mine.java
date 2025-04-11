@@ -2,7 +2,6 @@ package findMine;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -13,8 +12,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+<<<<<<< HEAD
 import java.awt.Color;
 import java.awt.Component;
+=======
+>>>>>>> parent of 310e8a86 (qew)
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -103,21 +105,22 @@ class FindBoomTitle2 extends JFrame{
 class FindBoom2 extends JFrame{
 	
 	
-    final int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};//선택한 버튼 주변 위치 좌표 지정
-    final int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
-	
 	ArrayList<Isboom> isbooms = new ArrayList<Isboom>();
-	Isboom selectCusorIsboom = null;
-	
+	final char Boom = 'B';
 	
 	int row = 0;
 	int col = 0;
 	boolean isdead = false;
 	
+<<<<<<< HEAD
 	int maxBoom = 10;	//폭탄 개수
 	int totalBlock = 0;	//총 블럭 개수
 	int openBlock = 0;	//열린 블럭 개수
     
+=======
+	int i = 0;
+	int j = 0;
+>>>>>>> parent of 310e8a86 (qew)
 	public void myFrame(){
 		setTitle("🔥 Find the Mine 🔥");
 		setSize(500,600);
@@ -126,28 +129,25 @@ class FindBoom2 extends JFrame{
 		
 		Container pane = getContentPane();
 		pane.setLayout(new GridLayout(10, 10));
-		
-		totalBlock = row * col;
-		for (int i = 0; i < totalBlock; i++) {//10개  폭탄을 먼저 생성, btn이 지정되지않은 리스트 추가
-			if (i < maxBoom) {
-				isbooms.add(new Isboom("B",null));
-			}else {
-				isbooms.add(new Isboom("",null));
-			}
-			
-		}
-		
-		Collections.shuffle(isbooms);		//리스트를 무작위로 섞음 서플
+        
+		Random randomValue = new Random();
 		
 		
 		//버튼을 만들어서 		
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < col; j++) {
-				int index = i * row + j;//선택하는 버튼의 index값
+		for (i = 0; i < row; i++) {
+			for (j = 0; j < col; j++) {
+				int index = i * row + j;
+				
+				if(randomValue.nextInt(2) == 1) {
+					isbooms.add(new Isboom(true,index));
+				}else {
+					isbooms.add(new Isboom(false,index));
+				}
 				
 				JButton btn = new JButton();
 				
 				btn.putClientProperty("index", index); // 버튼에 index 저장
+<<<<<<< HEAD
 				isbooms.get(index).setBtn(btn);			//리스트에 버튼 지정
 				
 				btn.addActionListener(e -> {
@@ -174,14 +174,33 @@ class FindBoom2 extends JFrame{
 					if (openBlock == totalBlock - maxBoom) {
 						System.out.println("다 찾음!!!");
 						GameEnd(true);
+=======
+				
+				btn.addActionListener(e -> {
+					
+					JButton clickedBtn = (JButton) e.getSource();
+		            int idx = (int) clickedBtn.getClientProperty("index");
+					btn.setEnabled(false);
+					
+					Boolean isBoom = isbooms.get(idx).getBoom();
+					//btn.setText(isbooms.get(index).getBoom() +"");
+					
+					if (isBoom) {
+						System.out.println("You die");
+						btn.setText("B");
+>>>>>>> parent of 310e8a86 (qew)
 						return;
 					}
 					
+					checkBoom(idx);
+					
+					//주변 체크
 				});
 				
 				
 				btn.addMouseListener(new MouseAdapter() {
 					
+<<<<<<< HEAD
 				    @Override
 				    public void mouseClicked(MouseEvent e) {
 				        if (SwingUtilities.isRightMouseButton(e)) {
@@ -210,12 +229,15 @@ class FindBoom2 extends JFrame{
 				    }
 				});
 				
+=======
+>>>>>>> parent of 310e8a86 (qew)
 				
 				pane.add(btn);
 				
 			}
 		}
 		
+<<<<<<< HEAD
 		pane.revalidate(); //변경된 좌표를 다시 계산해서 표시하는 메소드이다.
         pane.repaint();
 		
@@ -327,16 +349,68 @@ class FindBoom2 extends JFrame{
         
         
         //System.out.println("인덱스 번호 좌표 : " + idx);
+=======
+		
+		
+		pane.revalidate();
+        pane.repaint();
+		
 	}
-
+	private void checkBoom(int index) {
+		if (index < 0 || index >= isbooms.size()) {
+			return;
+		}
+		
+		//왼쪽확인
+		int cusor = index - 1;	
+		if (cusor > -1 && isbooms.get(cusor).boom) {
+			isdead = true;
+			return;
+		}
+		
+		//오른쪽 확인
+		cusor = index + 1;
+		if (cusor < isbooms.size() && isbooms.get(cusor).boom) {
+			isdead = true;
+			return;
+		}
+		
+		//위확인
+		cusor = index - row;	
+		if (cusor > -1 && isbooms.get(cusor).boom) {
+			isdead = true;
+			return;
+		}
+>>>>>>> parent of 310e8a86 (qew)
+	}
+	
+	
+	
 	public FindBoom2(int row,int col) {
 		this.row = row;
 		this.col = col;
-		
+		//SetMyArrays();
 		myFrame();
 		
 	}
 
+	
+//	private void SetMyArrays() {
+//		Random randomValue = new Random();
+//		for (int i = 0; i < row; i++) {
+//			
+//			for (int j = 0; j < col; j++) {
+//				//System.out.println(randomValue.nextInt(2));
+//				//0~1.9999999... 사이의 숫자를 int형으로 변화 
+//				if(randomValue.nextInt(2) == 1) {
+//					isbooms.add(new Isboom('B',i,j));
+//				}else {
+//					isbooms.add(new Isboom('X',i,j));
+//				}
+//			}
+//		}
+//	}
+	
 }
 
 
