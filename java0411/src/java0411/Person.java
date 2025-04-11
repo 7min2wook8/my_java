@@ -7,6 +7,8 @@ public class Person {
 	private int age;
 	private String tel;
 	private String eMail;
+	public static final String CITY = "대구";
+	
 	
 	public Person(String name, int age, String tel, String eMail) {
 		super();

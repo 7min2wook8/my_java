@@ -1,8 +1,13 @@
 package java0411;
 
 public class javaClass {
-
+	public void myStart() {
+		
+	}
+	
 	public static void main(String[] args) {
+		
+		System.out.println(Person.CITY);
 		// TODO Auto-generated method stub
 		Person person0 = new Person("홍길동",380,"010-0000-0000","hong@naver.com");
 		Person person1 = new Person("전우치",350,"010-1111-1111","jhen@naver.com");
@@ -19,6 +24,7 @@ public class javaClass {
 		person4.ShowInfo();
 		person5.ShowInfo();
 		
+	
 		
 //		System.out.println(person0.toString());
 //		System.out.println(person1.toString());
