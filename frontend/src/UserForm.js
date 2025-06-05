@@ -5,7 +5,7 @@ function UserForm() {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const { dispatch } = useContext(UserContext);
-
+//입력된 정보를 추가하는 함수
   const handleSubmit = (e) => {
     e.preventDefault();
     const user = { name, age: parseInt(age) };
